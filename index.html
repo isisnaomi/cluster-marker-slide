@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <title>Marker Clustering</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+
+        #map {
+            height: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js">
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnOTdmb78nZYCm01SE5TYB6xuSdYUAqkE&callback=initMap">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js">
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script async src="clusterSlide.js">
+    </script>
+    <script defer>
+        function initMap() {
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 3,
+                maxZoom: 18,
+                center: {
+                    lat: -28.024,
+                    lng: 140.887
+                }
+            });
+
+            // Initializing infowindow to shod details
+            var infowindow = new google.maps.InfoWindow({});
+
+
+            // Add some markers to the map.
+            // Note: The code uses the JavaScript Array.prototype.map() method to
+            // create an array of markers based on a given "locations" array.
+            // The map() method here has nothing to do with the Google Maps API.
+            var markers = locations.map(function(location, i) {
+                return new google.maps.Marker({
+                    position: location,
+                    id: "" + location.id
+                });
+            });
+
+            // Add a marker clusterer to manage the markers.
+            var markerCluster = new MarkerClusterer(map, markers, {
+                imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'
+            });
+
+            google.maps.event.addListener(markerCluster, 'clusterclick', function(cluster) {
+                ClusterSlide.initSlide(map, cluster, infowindow);
+
+
+            });
+        }
+        var locations = [{
+                lat: -31.563910,
+                lng: 147.154312,
+                id: 1
+            },
+            {
+                lat: -31.563910,
+                lng: 147.154312,
+                id: 2
+            },
+            {
+                lat: -31.563910,
+                lng: 147.154312,
+                id: 3
+            },
+            {
+                lat: -31.563910,
+                lng: 147.154312,
+                id: 4
+            },
+
+            {
+                lat: -33.718234,
+                lng: 150.363181,
+                id: 5
+            },
+            {
+                lat: -33.718234,
+                lng: 150.363181,
+                id: 6
+            },
+            {
+                lat: -33.718234,
+                lng: 150.363181,
+                id: 7
+            },
+            {
+                lat: -33.718234,
+                lng: 150.363181,
+                id: 8
+            },
+            {
+                lat: -33.718234,
+                lng: 150.363181,
+                id: 9
+            },
+            {
+                lat: -33.718234,
+                lng: 150.363181,
+                id: 10
+            },
+            {
+                lat: -33.727111,
+                lng: 150.371124,
+                id: 11
+            },
+            {
+                lat: -33.727111,
+                lng: 150.371124,
+                id: 12
+            },
+            {
+                lat: -33.727111,
+                lng: 150.371124,
+                id: 13
+            },
+            {
+                lat: -33.727111,
+                lng: 150.371124,
+                id: 14
+            },
+            {
+                lat: -33.848588,
+                lng: 151.209834,
+                id: 15
+            },
+
+            {
+                lat: -37.819616,
+                lng: 144.968119,
+                id: 16
+            },
+            {
+                lat: -37.819616,
+                lng: 144.968119,
+                id: 17
+            },
+            {
+                lat: -37.819616,
+                lng: 144.968119,
+                id: 18
+            },
+            {
+                lat: -37.819616,
+                lng: 144.968119,
+                id: 19
+            },
+            {
+                lat: -37.819616,
+                lng: 144.968119,
+                id: 20
+            }
+        ]
+    </script>
+
+    <script id="infobox-template" type="text/x-handlebars-template">
+        <div class="infobox">
+
+            <div class="infobox-content">
+                <h2>{{id}}</h2>
+            </div>
+            <span class="prev-pop infobox-control"><<</span>
+            <span class="next-pop infobox-control">>></span>
+        </div>
+    </script>
+
+</body>
+
+</html>
